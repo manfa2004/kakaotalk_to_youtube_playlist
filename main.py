@@ -67,23 +67,23 @@ def video_id(value):
         return temp
     return None
 
-# def add_playlist(query,id):
-#     try:
-#         result=youtube.playlistItems().insert(
-#             part="snippet",
-#             body={
-#                 'snippet': {
-#                     'playlistId': query, 
-#                     'resourceId': {
-#                         'kind': 'youtube#video',
-#                         'videoId': id
-#                     }
-#                 }
-#             }
-#         ).execute()
-#     except Exception:
-#         result = 'error'
-#     return result
+def add_playlist(query,id):
+    try:
+        result=youtube.playlistItems().insert(
+            part="snippet",
+            body={
+                'snippet': {
+                    'playlistId': query, 
+                    'resourceId': {
+                        'kind': 'youtube#video',
+                        'videoId': id
+                    }
+                }
+            }
+        ).execute()
+    except Exception:
+        result = 'error'
+    return result
 
 text = open('manji.txt', 'rt', encoding='UTF8')
 
@@ -96,7 +96,6 @@ txt = {}
 nm = {}
 music = {}
 state = 0
-
 
 l = latestupdate.readlines()
 luname = l[0].replace('\n','')
@@ -117,16 +116,11 @@ mn = {v:k for k,v in nm.items()}
 
 name.close()
 
-
 lines = text.readlines()
-
-print('check1 : 코드에 필요한 요소 받아오기')
 
 for line in lines:
     if line[0] == '[':
         lt.append(line)
-
-print('check2 : 텍스트 읽어오기')
 
 for j,i in nm.items():
     playlist_id = i
@@ -169,9 +163,6 @@ for j,i in nm.items():
         service.playlistItems().delete(id=videoItem[1]['id']).execute()
         print(j)
 
-
-print('check3 : 플레이리스트 음악 중복 확인')
-
 for i in lt:
     n = i.replace('[','').replace("\n","")
     n = n.split('] ')
@@ -192,8 +183,6 @@ for i in lt:
         else:
             txt[n[0]] = [n[1]]
 
-print('check4 : 리스트에서 유튜브 링크만 추가')
-
 for key, value in txt.items():
     for i in value:
         id = video_id(i)
@@ -204,8 +193,6 @@ for key, value in txt.items():
         print(key,'의 ',i,' 가 재생목록에 추가되었습니다',sep='')
 
 f1 = open('latestupdate.txt','w',encoding="UTF-8")
-
-print('check5 : 음악 추가')
 
 if latestname == '':
     print(luname,file=f1)

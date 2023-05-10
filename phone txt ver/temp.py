@@ -122,13 +122,10 @@ lines = text.readlines()
 
 print('check1 : 코드에 필요한 요소 받아오기')
 
-# for line in lines:
-#     if line[0] == '[':
-#         lt.append(line)
-
 for line in lines:
-    if line[0] == '2':
-        lt.append(line)
+    if len(line) >= 5:
+        if line[0] == '2' and line[4] == '년':
+            lt.append(line)
 
 print('check2 : 텍스트 읽어오기')
 
@@ -177,10 +174,14 @@ for j,i in nm.items():
 print('check3 : 플레이리스트 음악 중복 확인')
 
 for i in lt:
-    n = i.replace('[','').replace("\n","")
-    n = n.split(': ')[1]
-    print(n)
-    if n[1] == lulink and n[0] == luname:
+    if ' : ' in i:
+        n = i.replace("\n","")
+        n = n.split(' : ')
+        name = n[0].split(', ')[1]
+    else:
+        continue
+
+    if n[1] == lulink and name == luname:
         state = 1
         continue
     if state == 0:
@@ -189,12 +190,13 @@ for i in lt:
     check = n[1].split('/')[0]
     
     if check == 'https:':
-        latestname = n[0]
+        latestname = name
         latestlink = n[1]
-        if n[0] in txt:
-            txt[n[0]].append(n[1])
+        if name in txt:
+            txt[name].append(n[1])
         else:
-            txt[n[0]] = [n[1]]
+            txt[name] = [n[1]]
+        print(name, video_id(n[1]))
 
 print('check4 : 리스트에서 유튜브 링크만 추가')
 
@@ -219,7 +221,7 @@ else:
     print(latestname,file=f1)
     print(latestlink,file=f1) #프로그램 끝날때 메모장에 박아 넣는걸로
 
-f1.close()
+# f1.close()
 text.close()
 
 print("\n플레이리스트 업데이트 완료!")
