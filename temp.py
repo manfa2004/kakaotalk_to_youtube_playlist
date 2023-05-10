@@ -67,23 +67,23 @@ def video_id(value):
         return temp
     return None
 
-# def add_playlist(query,id):
-#     try:
-#         result=youtube.playlistItems().insert(
-#             part="snippet",
-#             body={
-#                 'snippet': {
-#                     'playlistId': query, 
-#                     'resourceId': {
-#                         'kind': 'youtube#video',
-#                         'videoId': id
-#                     }
-#                 }
-#             }
-#         ).execute()
-#     except Exception:
-#         result = 'error'
-#     return result
+def add_playlist(query,id):
+    try:
+        result=youtube.playlistItems().insert(
+            part="snippet",
+            body={
+                'snippet': {
+                    'playlistId': query, 
+                    'resourceId': {
+                        'kind': 'youtube#video',
+                        'videoId': id
+                    }
+                }
+            }
+        ).execute()
+    except Exception:
+        result = 'error'
+    return result
 
 text = open('manji.txt', 'rt', encoding='UTF8')
 
@@ -122,8 +122,12 @@ lines = text.readlines()
 
 print('check1 : 코드에 필요한 요소 받아오기')
 
+# for line in lines:
+#     if line[0] == '[':
+#         lt.append(line)
+
 for line in lines:
-    if line[0] == '[':
+    if line[0] == '2':
         lt.append(line)
 
 print('check2 : 텍스트 읽어오기')
@@ -174,8 +178,8 @@ print('check3 : 플레이리스트 음악 중복 확인')
 
 for i in lt:
     n = i.replace('[','').replace("\n","")
-    n = n.split('] ')
-    n.pop(1)
+    n = n.split(': ')[1]
+    print(n)
     if n[1] == lulink and n[0] == luname:
         state = 1
         continue
