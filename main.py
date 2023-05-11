@@ -1,6 +1,5 @@
-import re
-from Google import Create_Service
-import pandas as pd
+from Google import Create_Service                       #need to bring from Google.py
+import pandas as pd                                     
 from googleapiclient.discovery import build
 import httplib2
 import os
@@ -9,7 +8,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
-api_key = 'AIzaSyAEgqbLkwhov_hbQWPM02MhxM-hbziKHKY'
+api_key = 'AIzaSyAEgqbLkwhov_hbQWPM02MhxM-hbziKHKY'     #type your api_key
 
 CLIENT_SECRETS_FILE = "client_secret.json"
 MISSING_CLIENT_SECRETS_MESSAGE = """
@@ -54,7 +53,7 @@ youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
     http=credentials.authorize(httplib2.Http()))
 
 
-def video_id(value):
+def video_id(value):                                        #getting id from link
     host = value.split('/')
     if host[2] == 'youtu.be':
         return host[3]
