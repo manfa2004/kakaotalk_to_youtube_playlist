@@ -153,14 +153,14 @@ for j,i in nm.items():
         else:
             music[temp['videoId']] = mn[playlist_id]
         
-        if 'videoPublishedAt' in temp:
-            continue
-        service.playlistItems().delete(id=k['id']).execute()
-        print(j)
+        # if 'videoPublishedAt' in temp:
+        #     continue
+        # service.playlistItems().delete(id=k['id']).execute()      #지속적인 에러 발생으로 인한 주석 처리. 나중에 원인 분석 필요
+        # print(j)
 
-    for videoItem in df_playlistItems[df_contentDetails.duplicated()].iterrows():
-        service.playlistItems().delete(id=videoItem[1]['id']).execute()
-        print(j)
+    # for videoItem in df_playlistItems[df_contentDetails.duplicated()].iterrows():
+    #     service.playlistItems().delete(id=videoItem[1]['id']).execute()
+    #     print(j)
 
 for i in lt:
     n = i.replace('[','').replace("\n","")
