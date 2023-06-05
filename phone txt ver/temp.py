@@ -9,7 +9,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
-api_key = 'AIzaSyAEgqbLkwhov_hbQWPM02MhxM-hbziKHKY'
+api_key = ''
 
 CLIENT_SECRETS_FILE = "client_secret.json"
 MISSING_CLIENT_SECRETS_MESSAGE = """
